@@ -1,11 +1,16 @@
-## Developed by:LATHISH KANNA M
-## RegisterNumber: 212222230073
-# Experiment-05 Implementation of flipflops using verilog
-### AIM: To implement all the flipflops using verilog and validating their functionality using their functional tables
-### HARDWARE REQUIRED:  – PC, Cyclone II , USB flasher
-### SOFTWARE REQUIRED:   Quartus prime
-### THEORY 
-SR Flip-Flop
+```
+```
+## Name:LATHISH KANNA.M
+## Register Number: 21222210073
+# Experiment 05 Implementation of flipflops using verilog
+### AIM: 
+To implement all the flipflops using verilog and validating their functionality using their functional tables
+### HARDWARE REQUIRED:  
+– PC, Cyclone II , USB flasher
+### SOFTWARE REQUIRED:   
+Quartus prime
+### THEORY :
+#### SR Flip-Flop
 SR flip-flop operates with only positive clock transitions or negative clock transitions. Whereas, SR latch operates with enable signal. The circuit diagram of SR flip-flop is shown in the following figure.
 
 ![image](https://user-images.githubusercontent.com/36288975/167910294-bb550548-b1dc-4cba-9044-31d9037d476b.png)
@@ -33,7 +38,7 @@ The maximum possible groupings of adjacent ones are already shown in the figure.
 Q(t+1)=S+R′Q(t)Q(t+1)=S+R′Q(t)
 
 
-### D Flip-Flop
+#### D Flip-Flop
 D flip-flop operates with only positive clock transitions or negative clock transitions. Whereas, D latch operates with enable signal. That means, the output of D flip-flop is insensitive to the changes in the input, D except for active transition of the clock signal. The circuit diagram of D flip-flop is shown in the following figure.
  
 This circuit has single input D and two outputs Qtt & Qtt’. The operation of D flip-flop is similar to D Latch. But, this flip-flop affects the outputs only when positive transition of the clock signal is applied instead of active enable.
@@ -54,7 +59,7 @@ Qt+1t+1 = D
 Next state of D flip-flop is always equal to data input, D for every positive transition of the clock signal. Hence, D flip-flops can be used in registers, shift registers and some of the counters.
 
 
-### JK Flip-Flop
+#### JK Flip-Flop
 JK flip-flop is the modified version of SR flip-flop. It operates with only positive clock transitions or negative clock transitions. The circuit diagram of JK flip-flop is shown in the following figure.
 ![image](https://user-images.githubusercontent.com/36288975/167910378-d2d984a7-2815-4d17-8c41-ee4bdf59ec24.png) 
 
@@ -81,7 +86,7 @@ Q(t+1)=JQ(t)′+K′Q(t)Q(t+1)=JQ(t)′+K′Q(t)
 
 
 
-### T Flip-Flop
+#### T Flip-Flop
 T flip-flop is the simplified version of JK flip-flop. It is obtained by connecting the same input ‘T’ to both inputs of JK flip-flop. It operates with only positive clock transitions or negative clock transitions. The circuit diagram of T flip-flop is shown in the following figure.
 
 ![image](https://user-images.githubusercontent.com/36288975/167911534-5f3c445d-bc68-46e2-9a9c-7efce5febc60.png)
@@ -103,67 +108,123 @@ From the above characteristic table, we can directly write the next state equati
 Q(t+1)=T′Q(t)+TQ(t)′
 ⇒Q(t+1)=T⊕Q(t)
 
-### Procedure:
- 1.Create a project with required entities.
- 
- 2.Create a module along with respective file name.
- 
- 3.Run the respective programs for the given boolean equations.
- 
- 4.Run the module and get the respective RTL outputs.
- 
- 5.Create university program(VWF) for getting timing diagram.
- 
- 6.Give the respective inputs for timing diagram and obtain the results.
+### Procedure
+1. Create a New Project:
+   - Open Quartus and create a new project by selecting "File" > "New Project Wizard."
+   - Follow the wizard's instructions to set up your project, including specifying the project name, location, and target device (FPGA).
 
-### PROGRAM :
-Program for flipflops  and verify its truth table in quartus using Verilog programming.
+2. Create a New Design File:
+   - Once the project is created, right-click on the project name in the Project Navigator and select "Add New File."
+   - Choose "Verilog HDL File" or "VHDL File," depending on your chosen hardware description language.
 
-Developed by:LATHISH KANNA M
+3. Write the Combinational Logic Code:
+   - Open the newly created Verilog or VHDL file and write the code for your combinational logic.
+     
+4. Compile the Project:
+   - To compile the project, click on "Processing" > "Start Compilation" in the menu.
+   - Quartus will analyze your code, synthesize it into a netlist, and perform optimizations based on your target FPGA device.
 
-RegisterNumber: 212222230073
-### SR Flipflop
+5. Analyze and Fix Errors:*
+   - If there are any errors or warnings during the compilation process, Quartus will display them in the Messages window.
+   - Review and fix any issues in your code if necessary.
+   - View the RTL diagram.
+
+6.*Verification:
+   - Click on "File" > "New" > "Verification/Debugging Files" > "University Program VWF".
+   - Once Waveform is created Right Click on the Input/Output Panel > " Insert Node or Bus" > Click on Node Finder > Click On "List" > Select All.
+   - Give the Input Combinations according to the Truth Table amd then simulate the Output Waveform.
+
+
+
+### PROGRAM 
+#### SR Flipflop
 ```
-module flipflop(s,r,Q,Qbar,clk);
-input s,r,clk;
+module flipflop (S,R,Q,Qbar,CLK);
+input S,R,CLK;
 output reg Q,Qbar;
 initial Q=0;
 initial Qbar=1;
-always @(posedge clk)
+always @(posedge CLK)
 begin
-Q=s|(Q&(~r));
-Qbar=r|(Qbar&(~s));
+Q=S|(Q&(~R));
+Qbar=R|(Qbar&(~S));
 end
 endmodule
 ```
-### JK Flipflop
+#### JK Flipflop:
+
 ```
-module jkflipflop(k,clk,j,Q,Qbar);
-input k,clk,j;
-output reg Q;
-output reg Qbar;
-initial Q=0;
-initial Qbar=1;
+module jkflipflop(j,k,clk,q,qbar);
+input j,k,clk;
+output reg q;
+output reg qbar;
+initial q=0;
+initial qbar=1;
 always @(posedge clk)
 begin
-Q=((~Q)&j)|(Q&~k);
-Qbar=(~Qbar&k)|(Qbar&~j);
+q=(j&(~q))|((~k)&q);
+qbar=((~j)&q)|(k &(~q));
+end 
+endmodule
+```
+#### D Flipflop:
+```
+module dflipflop(d,clk,q,qbar); 
+input d,clk; 
+output reg q; 
+output reg qbar; 
+initial q=0;
+initial qbar=1; 
+always @(posedge clk) 
+begin 
+q=d; 
+qbar=~q; 
+end 
+endmodule
+```
+
+#### T Flipflop:
+```
+module t(T,clk,q,qbar);
+input T,clk;
+output reg q;
+output reg qbar;
+initial q=0;
+initial qbar=1;
+always @ (posedge clk)
+begin
+q=(T&(~q))|((~T)&q);
+qbar=(~q);
 end
 endmodule
 ```
-### RTL LOGIC FOR SR FLIPFLOPS 
-![Screenshot 2023-09-15 091447](https://github.com/Sabariakash22009103/Experiment--05-Implementation-of-flipflops-using-verilog/assets/119390227/1bc88871-4bf5-448f-9f86-927c28d54f9b)
-### RTL LOGIC FOR JK FLIPFLOPS
-![WhatsApp Image 2023-09-22 at 09 20 39](https://github.com/Sabariakash22009103/Experiment--05-Implementation-of-flipflops-using-verilog/assets/119390227/09d04eb0-3cbd-4737-a02f-3458f788b7f9)
+### RTL LOGIC FOR FLIPFLOPS 
+#### SR Fliflop
+![image](https://github.com/Vanitha-SM/Experiment--05-Implementation-of-flipflops-using-verilog/assets/119557985/1dcc2eb2-8cf4-4311-81f9-683df287e3b9)
+#### JK Flipflop
 
-### Waveform Output For SR:
-![Screenshot 2023-09-15 093155](https://github.com/Sabariakash22009103/Experiment--05-Implementation-of-flipflops-using-verilog/assets/119390227/d3c1e24f-ba47-467f-841d-37772682dd41)
-### Waveform Output For JK:
-![image](https://github.com/Sabariakash22009103/Experiment--05-Implementation-of-flipflops-using-verilog/assets/119390227/4cef0bb8-8b6b-41cf-8502-449d3bd82d7f)
+![Screenshot 2023-09-22 093907](https://github.com/Vanitha-SM/Experiment--05-Implementation-of-flipflops-using-verilog/assets/119557985/d96367a3-a392-4d83-8df9-08f7cf4b5228)
+#### D Flipflop
 
-### Truth table For SR:
-![image](https://github.com/Sabariakash22009103/Experiment--05-Implementation-of-flipflops-using-verilog/assets/119390227/62db8ecc-51b1-4210-9316-a4242725dfec)
-### Truth table For JK:
-![Screenshot 2023-09-22 093655](https://github.com/Sabariakash22009103/Experiment--05-Implementation-of-flipflops-using-verilog/assets/119390227/081d22fe-e63b-434c-8352-4e8cf27df2af)
-### RESULTS 
-Thus the flipflops circuits are designed and the truth tables is verified using quartus software.
+![Screenshot 2023-10-06 092434](https://github.com/Vanitha-SM/Experiment--05-Implementation-of-flipflops-using-verilog/assets/119557985/c7888cb3-a5f3-4ec7-af21-d40b20b4c56e)
+#### T Flipflop
+![image](https://github.com/Vanitha-SM/Experiment--05-Implementation-of-flipflops-using-verilog/assets/119557985/f872e0ff-15fd-46cc-92d8-1edc88a05746)
+
+
+### Output Waveform:
+##### SR Flipflop
+![WhatsApp Image 2023-09-22 at 09 07 36](https://github.com/Vanitha-SM/Experiment--05-Implementation-of-flipflops-using-verilog/assets/119557985/b039e5b3-92ee-4e7a-b933-63774d4e9300)
+#### JK Flipflop
+![image](https://github.com/Vanitha-SM/Experiment--05-Implementation-of-flipflops-using-verilog/assets/119557985/a2536872-4e50-4964-87be-8b35d0801816)
+#### D Flipflop:
+![Screenshot 2023-10-06 093205](https://github.com/Vanitha-SM/Experiment--05-Implementation-of-flipflops-using-verilog/assets/119557985/f355220c-0610-4814-9b91-b313676d312b)
+#### T Flipflop:
+![image](https://github.com/Vanitha-SM/Experiment--05-Implementation-of-flipflops-using-verilog/assets/119557985/4cf86f61-ea62-41db-af11-cb61d6d11541)
+
+
+
+
+
+
+### RESULT:
+All the flipflops are implemented using verilog and their functionality has been validated using their functional tables.
